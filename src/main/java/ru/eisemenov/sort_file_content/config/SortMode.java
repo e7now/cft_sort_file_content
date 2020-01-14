@@ -1,5 +1,5 @@
 package ru.eisemenov.sort_file_content.config;
 
-enum SortMode {
+public enum SortMode {
     ASCENDING, DESCENDING
 }

@@ -1,5 +1,5 @@
 package ru.eisemenov.sort_file_content.config;
 
-enum ContentType {
+public enum ContentType {
     INTEGER, STRING
 }
