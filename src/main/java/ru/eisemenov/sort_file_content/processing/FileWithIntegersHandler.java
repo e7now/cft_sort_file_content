@@ -22,7 +22,6 @@ public class FileWithIntegersHandler implements Runnable {
             while ((line = reader.readLine()) != null) {
                 try {
                     int num = Integer.parseInt(line.trim());
-                    System.out.println("num = " + num);
                     content.add(num);
                 } catch (NumberFormatException e) {
                     throw new FileProcessingException("WARNING: In file " + filePath + " found line \"" + line + "\" which is not integer. File will not be processed");

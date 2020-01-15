@@ -20,7 +20,6 @@ public class FileWithStringsHandler implements Runnable {
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                System.out.println("line = " + line);
                 content.add(line);
             }
         }
