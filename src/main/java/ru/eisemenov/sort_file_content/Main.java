@@ -27,7 +27,7 @@ class Main {
             }
         }
 
-        ExecutorService threadPool = Executors.newWorkStealingPool();
+        ExecutorService threadPool = Executors.newCachedThreadPool();
         for (File file : files) {
             System.out.println(file.toString());
             if (config.getContentType() == ContentType.INTEGER) {
