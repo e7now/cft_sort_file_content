@@ -1,52 +1,19 @@
 package ru.eisemenov.sort_file_content;
 
 import org.apache.commons.cli.ParseException;
-import ru.eisemenov.sort_file_content.config.*;
-import ru.eisemenov.sort_file_content.processing.FileWithIntegersHandler;
-import ru.eisemenov.sort_file_content.processing.FileWithStringsHandler;
-
-import java.io.File;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import ru.eisemenov.sort_file_content.config.AppConfig;
+import ru.eisemenov.sort_file_content.config.AppConfigBuilder;
+import ru.eisemenov.sort_file_content.config.AppConfigException;
+import ru.eisemenov.sort_file_content.config.SortMode;
+import ru.eisemenov.sort_file_content.processing.FilesSorter;
 
 class Main {
     public static void main(String[] args) {
         AppConfig config = getAppConfig(args);
+        FilesSorter sorter = new FilesSorter(config.getDirectory());
 
-        File[] files = config.getDirectory().listFiles(File::isFile);
-        assert files != null;
-
-        if (files.length > 0) {
-            File outputDirectory = new File(config.getDirectory(), "out");
-            File[] filesToDelete = outputDirectory.listFiles(File::isFile);
-            if (outputDirectory.exists()) {
-                for (File file : filesToDelete) file.delete();
-            } else {
-                outputDirectory.mkdir();
-            }
-        }
-
-        ExecutorService threadPool = Executors.newCachedThreadPool();
-        for (File file : files) {
-            System.out.println(file.toString());
-            if (config.getContentType() == ContentType.INTEGER) {
-                boolean isAscending = config.getSortMode() == SortMode.ASCENDING;
-                FileWithIntegersHandler fileWithIntegersHandler = new FileWithIntegersHandler(file, config.getPrefix(), isAscending);
-                threadPool.execute(fileWithIntegersHandler);
-            } else if (config.getContentType() == ContentType.STRING) {
-                boolean isAscending = config.getSortMode() == SortMode.ASCENDING;
-                FileWithStringsHandler fileWithIntegersHandler = new FileWithStringsHandler(file, config.getPrefix(), isAscending);
-                threadPool.execute(fileWithIntegersHandler);
-            }
-        }
-
-        try {
-            threadPool.shutdown();
-            threadPool.awaitTermination(1000, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        boolean isAscendingSort = config.getSortMode() == SortMode.ASCENDING;
+        sorter.sortAndSaveAllFiles(isAscendingSort, config.getContentType(), config.getPrefix());
     }
 
     private static AppConfig getAppConfig(String[] args) {
