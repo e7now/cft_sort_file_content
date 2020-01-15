@@ -3,6 +3,7 @@ package ru.eisemenov.sort_file_content;
 import org.apache.commons.cli.ParseException;
 import ru.eisemenov.sort_file_content.config.*;
 import ru.eisemenov.sort_file_content.processing.FileWithIntegersHandler;
+import ru.eisemenov.sort_file_content.processing.FileWithStringsHandler;
 
 import java.io.File;
 import java.util.concurrent.ExecutorService;
@@ -32,6 +33,10 @@ class Main {
             if (config.getContentType() == ContentType.INTEGER) {
                 boolean isAscending = config.getSortMode() == SortMode.ASCENDING;
                 FileWithIntegersHandler fileWithIntegersHandler = new FileWithIntegersHandler(file, config.getPrefix(), isAscending);
+                threadPool.execute(fileWithIntegersHandler);
+            } else if (config.getContentType() == ContentType.STRING) {
+                boolean isAscending = config.getSortMode() == SortMode.ASCENDING;
+                FileWithStringsHandler fileWithIntegersHandler = new FileWithStringsHandler(file, config.getPrefix(), isAscending);
                 threadPool.execute(fileWithIntegersHandler);
             }
         }
