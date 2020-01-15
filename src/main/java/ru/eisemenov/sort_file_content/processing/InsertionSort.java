@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.function.BiFunction;
 
 class InsertionSort {
-    static <T extends Comparable> void sort(List<T> list, boolean ascending) {
+    static <T extends Comparable<T>> void sort(List<T> list, boolean ascending) {
         if (list == null || list.size() <= 1) return;
 
         BiFunction<T, T, Boolean> comparator;
