@@ -70,7 +70,7 @@ public class AppConfigBuilder {
 
         Option contentType = Option.builder()
                 .longOpt("content-type")
-                .desc("Type of content (i or s)")
+                .desc("Type of content (i-integer or s-string)")
                 .required()
                 .hasArg()
                 .type(String.class)
@@ -78,7 +78,7 @@ public class AppConfigBuilder {
 
         Option sortMode = Option.builder()
                 .longOpt("sort-mode")
-                .desc("Type of content (i or s)")
+                .desc("Sort mode (a-ascending or d-descending)")
                 .required()
                 .hasArg()
                 .type(String.class)
