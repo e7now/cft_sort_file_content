@@ -2,7 +2,7 @@ package ru.eisemenov.sort_file_content.processing;
 
 import java.io.File;
 
-public class FileWithIntegersHandler extends FileHandler<Integer> {
+class FileWithIntegersHandler extends FileHandler<Integer> {
     FileWithIntegersHandler(File file, String outputFilePrefix, boolean ascending) {
         super(file, outputFilePrefix, ascending);
     }

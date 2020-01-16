@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
-abstract public class FileHandler<T extends Comparable<T>> implements Runnable {
+abstract class FileHandler<T extends Comparable<T>> implements Runnable {
     protected File filePath;
     private List<T> content = new ArrayList<>();
     private String outputFilePrefix;
